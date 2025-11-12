@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "title": "Global Summit on Climate Change: Historic Agreement Reached",
+    "imagePath": "assets/img_1.png",
+    "logoPath": "assets/bbc_logo.png",
+    "source": "BBC News",
+    "tag": "Environment",
+    "date": "Jun 9, 2023"
+  },
+  {
+    "id": 2,
+    "title": "Tech Giants Invest Billions in Renewable Energy",
+    "imagePath": "assets/forbes_img.png",
+    "logoPath": "assets/forbes_logo.png",
+    "source": "Forbes",
+    "tag": "Business",
+    "date": "Jun 10, 2023"
+  },
+  {
+    "id": 3,
+    "title": "AI Revolutionizes Real-Time Translation Services",
+    "imagePath": "assets/img_1.png",
+    "logoPath": "assets/bbc_logo.png",
+    "source": "BBC News",
+    "tag": "Technology",
+    "date": "Jun 11, 2023"
+  }
+]

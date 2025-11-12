@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-AppBar navBar({required String title}) {
+AppBar navBar({required String title, VoidCallback? onLeadingTap}) {
   return AppBar(
     backgroundColor: Colors.white,
     elevation: 0,
@@ -17,8 +17,7 @@ AppBar navBar({required String title}) {
           width: 52,
           height: 52,
         ),
-        onPressed: () {
-        },
+        onPressed: onLeadingTap ?? () {},
       ),
     ),
     actions: [

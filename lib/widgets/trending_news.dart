@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:lab2/widgets/trending_news_element.dart';
+
+import '../models/trending_news_model.dart';
+import 'trending_news_element.dart';
 
 class TrendingNewsWidget extends StatelessWidget {
-  const TrendingNewsWidget({super.key});
+  const TrendingNewsWidget({
+    super.key,
+    required this.items,
+  });
+
+  final List<TrendingNewsModel> items;
 
   @override
   Widget build(BuildContext context) {
@@ -29,24 +36,24 @@ class TrendingNewsWidget extends StatelessWidget {
 
           SizedBox(
             height: 325,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              physics: BouncingScrollPhysics(),
-              children: const [
-                TrendingCard(title: 'Global Summit on Climate\n'
-                    'Change: Historic Agreement Reached', imagePath: 'assets/img_1.png',
-                  source: "BBC News",
-                  date: "Jun 9, 2023",),
-                TrendingCard(title: 'Global Summit on Climate\n '
-                    'Change: Historic Agreement Reached', imagePath: 'assets/img_1.png',
-                  source: "BBC News",
-                  date: "Jun 9, 2023",),
-                TrendingCard(title: 'Global Summit on Climate\n '
-                    'Change: Historic Agreement Reached', imagePath: 'assets/img_1.png',
-                  source: "BBC News",
-                  date: "Jun 9, 2023",),
-              ],
-            ),
+            child: items.isEmpty
+                ? const Center(child: Text('No trending news available'))
+                : ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    physics: const BouncingScrollPhysics(),
+                    itemCount: items.length,
+                    itemBuilder: (context, index) {
+                      final item = items[index];
+                      return TrendingCard(
+                        title: item.title,
+                        imagePath: item.imagePath,
+                        source: item.source,
+                        date: item.date,
+                        tag: item.tag,
+                        logoPath: item.logoPath,
+                      );
+                    },
+                  ),
           ),
           const SizedBox(height: 12),
 

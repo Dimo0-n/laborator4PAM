@@ -6,6 +6,8 @@ class TrendingCard extends StatelessWidget {
   final String imagePath;
   final String source;
   final String date;
+  final String tag;
+  final String logoPath;
 
   const TrendingCard({
     super.key,
@@ -13,6 +15,8 @@ class TrendingCard extends StatelessWidget {
     required this.imagePath,
     required this.source,
     required this.date,
+    required this.tag,
+    required this.logoPath,
   });
 
   @override
@@ -50,9 +54,9 @@ class TrendingCard extends StatelessWidget {
                     color: Colors.lightBlueAccent,
                     borderRadius: BorderRadius.circular(6),
                   ),
-                  child: const Text(
-                    "Environment",
-                    style: TextStyle(
+                  child: Text(
+                    tag,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
@@ -83,7 +87,7 @@ class TrendingCard extends StatelessWidget {
                     width: 24,
                     height: 24,
                     child: Image.asset(
-                      "assets/bbc_logo.png",
+                      logoPath,
                       fit: BoxFit.cover,
                     ),
                   ),

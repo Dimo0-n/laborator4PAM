@@ -2,11 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lab2/widgets/chanel_description.dart';
 import 'package:lab2/widgets/navbar_secundar.dart';
-import 'package:lab2/widgets/trending_news.dart';
 import '../widgets/chanel_info.dart';
-import '../widgets/navbar_principale.dart';
 import '../widgets/recommendation_post.dart';
-import '../widgets/search_bar.dart';
+import '../widgets/post_details_search_bar.dart';
 
 class PostDetails extends StatelessWidget {
   const PostDetails({super.key});
