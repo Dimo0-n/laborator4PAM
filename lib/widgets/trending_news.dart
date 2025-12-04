@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/trending_news_model.dart';
+import 'package:lab2/domain/models/trending_news_model.dart';
 import 'trending_news_element.dart';
 
 class TrendingNewsWidget extends StatelessWidget {

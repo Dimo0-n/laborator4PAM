@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../screens/post_details.dart';
-import '../models/data_model.dart';
+import 'package:lab2/domain/models/data_model.dart';
+import 'package:lab2/presentation/screens/post_details.dart';
 
 class RecommendationWidget extends StatelessWidget {
   final bool isHomePage;

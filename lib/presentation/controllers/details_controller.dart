@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 
-import 'controller_status.dart';
-import 'models/feed_details_response.dart';
-import 'repositories/data_repository.dart';
+import 'package:lab2/data/repositories/data_repository.dart';
+import 'package:lab2/domain/models/feed_details_response.dart';
+import 'package:lab2/presentation/controllers/controller_status.dart';
 
 class DetailsController extends GetxController {
   DetailsController({DataRepository? repository})

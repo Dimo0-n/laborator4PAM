@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:lab2/widgets/chanel_description.dart';
 import 'package:lab2/widgets/navbar_secundar.dart';
 
-import '../controller_status.dart';
-import '../details_controller.dart';
-import '../models/feed_details_response.dart';
-import '../widgets/chanel_info.dart';
-import '../widgets/post_details_search_bar.dart';
-import '../widgets/recommendation_post.dart';
+import 'package:lab2/domain/models/feed_details_response.dart';
+import 'package:lab2/presentation/controllers/controller_status.dart';
+import 'package:lab2/presentation/controllers/details_controller.dart';
+import 'package:lab2/widgets/chanel_info.dart';
+import 'package:lab2/widgets/post_details_search_bar.dart';
+import 'package:lab2/widgets/recommendation_post.dart';
 
 class PostDetails extends StatefulWidget {
   const PostDetails({super.key});

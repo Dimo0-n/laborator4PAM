@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/data_model.dart';
+import 'package:lab2/domain/models/data_model.dart';
 
 class DataCardWidget extends StatelessWidget {
   const DataCardWidget({

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../MainController.dart';
-import '../list_items/data_model_list_item.dart';
-import '../list_items/recommendation_list_item.dart';
-import '../list_items/trending_news_list_item.dart';
-import '../list_items/welcome_list_item.dart';
-import '../widgets/data_card_widget.dart';
-import '../widgets/navbar_principale.dart';
-import '../widgets/recommendation_post.dart';
-import '../widgets/trending_news.dart';
-import '../widgets/welcome_message_widget.dart';
-import '../controller_status.dart';
+import 'package:lab2/presentation/controllers/controller_status.dart';
+import 'package:lab2/presentation/controllers/main_controller.dart';
+import 'package:lab2/presentation/list_items/data_model_list_item.dart';
+import 'package:lab2/presentation/list_items/recommendation_list_item.dart';
+import 'package:lab2/presentation/list_items/trending_news_list_item.dart';
+import 'package:lab2/presentation/list_items/welcome_list_item.dart';
+import 'package:lab2/widgets/data_card_widget.dart';
+import 'package:lab2/widgets/navbar_principale.dart';
+import 'package:lab2/widgets/recommendation_post.dart';
+import 'package:lab2/widgets/trending_news.dart';
+import 'package:lab2/widgets/welcome_message_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

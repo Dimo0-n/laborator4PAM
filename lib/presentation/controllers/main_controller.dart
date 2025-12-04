@@ -1,17 +1,15 @@
-// ignore_for_file: file_names
-
 import 'package:get/get.dart';
 
-import 'controller_status.dart';
-import 'list_items/data_model_list_item.dart';
-import 'list_items/home_list_item.dart';
-import 'list_items/recommendation_list_item.dart';
-import 'list_items/trending_news_list_item.dart';
-import 'list_items/welcome_list_item.dart';
-import 'models/data_model.dart';
-import 'models/feed_response.dart';
-import 'models/trending_news_model.dart';
-import 'repositories/data_repository.dart';
+import 'package:lab2/data/repositories/data_repository.dart';
+import 'package:lab2/domain/models/data_model.dart';
+import 'package:lab2/domain/models/feed_response.dart';
+import 'package:lab2/domain/models/trending_news_model.dart';
+import 'package:lab2/presentation/controllers/controller_status.dart';
+import 'package:lab2/presentation/list_items/data_model_list_item.dart';
+import 'package:lab2/presentation/list_items/home_list_item.dart';
+import 'package:lab2/presentation/list_items/recommendation_list_item.dart';
+import 'package:lab2/presentation/list_items/trending_news_list_item.dart';
+import 'package:lab2/presentation/list_items/welcome_list_item.dart';
 
 class MainController extends GetxController {
   MainController({DataRepository? repository})

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../list_items/welcome_list_item.dart';
+import 'package:lab2/presentation/list_items/welcome_list_item.dart';
 
 class WelcomeMessageWidget extends StatelessWidget {
   const WelcomeMessageWidget({
