@@ -31,11 +31,24 @@ class DataCardWidget extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-              child: Image.asset(
-                model.image,
-                fit: BoxFit.cover,
-                height: 180,
-                width: double.infinity,
+              child: AspectRatio(
+                aspectRatio: 16 / 9,
+                child: model.image.isNotEmpty
+                    ? Image.network(
+                        model.image,
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        errorBuilder: (context, _, __) => Container(
+                          color: Colors.grey.shade200,
+                          alignment: Alignment.center,
+                          child: const Icon(Icons.broken_image),
+                        ),
+                      )
+                    : Container(
+                        color: Colors.grey.shade200,
+                        alignment: Alignment.center,
+                        child: const Icon(Icons.image_not_supported),
+                      ),
               ),
             ),
             Padding(
@@ -52,7 +65,7 @@ class DataCardWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    model.description,
+                    model.category,
                     style: const TextStyle(
                       fontSize: 14,
                       color: Colors.black54,
@@ -60,7 +73,7 @@ class DataCardWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    model.source,
+                    model.publisher,
                     style: const TextStyle(
                       fontSize: 12,
                       color: Colors.blueGrey,

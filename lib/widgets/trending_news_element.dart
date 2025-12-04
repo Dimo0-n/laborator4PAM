@@ -8,6 +8,7 @@ class TrendingCard extends StatelessWidget {
   final String date;
   final String tag;
   final String logoPath;
+  final bool isVerified;
 
   const TrendingCard({
     super.key,
@@ -17,12 +18,15 @@ class TrendingCard extends StatelessWidget {
     required this.date,
     required this.tag,
     required this.logoPath,
+    required this.isVerified,
   });
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double cardWidth = screenWidth - 48; // padding 18 + margin 12
     return Container(
-      width: 305,
+      width: cardWidth.clamp(240, 320),
       margin: const EdgeInsets.only(right: 12),
       decoration: BoxDecoration(
         color: CupertinoColors.systemGrey6,
@@ -38,11 +42,18 @@ class TrendingCard extends StatelessWidget {
                   topLeft: Radius.circular(8),
                   topRight: Radius.circular(8),
                 ),
-                child: Image.asset(
-                  imagePath,
-                  height: 161,
-                  width: double.infinity,
-                  fit: BoxFit.contain,
+                child: AspectRatio(
+                  aspectRatio: 16 / 9,
+                  child: Image.network(
+                    imagePath,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    errorBuilder: (context, _, __) => Container(
+                      color: Colors.grey.shade300,
+                      alignment: Alignment.center,
+                      child: const Icon(Icons.broken_image),
+                    ),
+                  ),
                 ),
               ),
               Positioned(
@@ -68,11 +79,13 @@ class TrendingCard extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Padding(
-            padding: const EdgeInsets.only(left: 18, top: 8),
+            padding: const EdgeInsets.only(left: 18, top: 8, right: 18),
             child: Text(
               title,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
               textAlign: TextAlign.start,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
           const SizedBox(height: 12),
@@ -86,28 +99,37 @@ class TrendingCard extends StatelessWidget {
                   child: SizedBox(
                     width: 24,
                     height: 24,
-                    child: Image.asset(
+                    child: Image.network(
                       logoPath,
                       fit: BoxFit.cover,
+                      errorBuilder: (context, _, __) => Container(
+                        color: Colors.grey.shade300,
+                        alignment: Alignment.center,
+                        child: const Icon(Icons.broken_image, size: 14),
+                      ),
                     ),
                   ),
                 ),
                 const SizedBox(width: 8),
                 // Source name
-                Text(
-                  source,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w500,
+                Expanded(
+                  child: Text(
+                    source,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 4),
-                const Icon(
-                  Icons.verified,
-                  size: 16,
-                  color: Colors.blue,
-                ),
+                if (isVerified)
+                  const Icon(
+                    Icons.verified,
+                    size: 16,
+                    color: Colors.blue,
+                  ),
                 const Spacer(),
                 // Date
                 Text(

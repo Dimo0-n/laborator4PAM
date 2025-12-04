@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:lab2/screens/home_screen.dart';
 
 AppBar navBarSecund({required String title}) {
   return AppBar(

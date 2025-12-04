@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SearchBa extends StatelessWidget {
-  const SearchBa({super.key});
+  const SearchBa({
+    super.key,
+    required this.publisherName,
+    required this.activeSort,
+  });
+
+  final String publisherName;
+  final String activeSort;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +23,7 @@ class SearchBa extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'News by Forbes',
+                'News by $publisherName',
                 style: TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
@@ -32,14 +39,14 @@ class SearchBa extends StatelessWidget {
               Text(
                 'Sort by: ',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 15,
                   color: Colors.grey[400],
                 ),
               ),
               Text(
-                'Newest',
+                activeSort,
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 15,
                   fontWeight: FontWeight.w500,
                   color: Colors.black,
                 ),
@@ -100,11 +107,15 @@ class SearchBa extends StatelessWidget {
                     size: 20,
                   ),
                   const SizedBox(width: 12),
-                  Text(
-                    'Search "News"',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey[500],
+                  Expanded(
+                    child: Text(
+                      'Search "News"',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.grey[500],
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],

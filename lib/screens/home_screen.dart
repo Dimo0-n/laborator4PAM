@@ -11,6 +11,7 @@ import '../widgets/navbar_principale.dart';
 import '../widgets/recommendation_post.dart';
 import '../widgets/trending_news.dart';
 import '../widgets/welcome_message_widget.dart';
+import '../controller_status.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -73,8 +74,13 @@ class _HomeScreenState extends State<HomeScreen> {
             } else if (item is TrendingNewsListItem) {
               return TrendingNewsWidget(items: item.items);
             } else if (item is RecommendationListItem) {
-              return RecommendationWidget(isHomePage: item.isHomePage);
-            } else if (item is DataModelListItem)
+              return RecommendationWidget(
+                isHomePage: item.isHomePage,
+                data: item.recommendation,
+              );
+            } else if (item is DataModelListItem) {
+              return DataCardWidget(model: item.data);
+            }
             return const SizedBox.shrink();
           },
         );

@@ -2,13 +2,22 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../screens/post_details.dart';
+import '../models/data_model.dart';
 
 class RecommendationWidget extends StatelessWidget {
   final bool isHomePage;
-  const RecommendationWidget({super.key, this.isHomePage = true});
+  final DataModel? data;
+  const RecommendationWidget({
+    super.key,
+    this.isHomePage = true,
+    this.data,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double cardWidth = screenWidth - 32; // padding horizontal
+    final DataModel? model = data;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Column(
@@ -26,15 +35,15 @@ class RecommendationWidget extends StatelessWidget {
 
           GestureDetector(
             onTap: () {
-              if (isHomePage)
+              if (isHomePage) {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => const PostDetails()),
                 );
+              }
             },
             child: Container(
-              height: 412,
-              width: 392,
+              width: cardWidth,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: CupertinoColors.systemGrey6,
@@ -55,33 +64,49 @@ class RecommendationWidget extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Image.asset(
-                            "assets/forbes_logo.png",
-                            fit: BoxFit.cover,
-                            height: 36,
-                            width: 36,
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: SizedBox(
+                              height: 36,
+                              width: 36,
+                              child: model?.publisherIcon.isNotEmpty == true
+                                  ? Image.network(
+                                      model!.publisherIcon,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (context, _, __) => Image.asset(
+                                        "assets/forbes_logo.png",
+                                        fit: BoxFit.cover,
+                                      ),
+                                    )
+                                  : Image.asset(
+                                      "assets/forbes_logo.png",
+                                      fit: BoxFit.cover,
+                                    ),
+                            ),
                           ),
                           const SizedBox(width: 12),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                children: const [
+                                children: [
                                   Text(
-                                    "Forbes",
-                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    model?.publisher ?? "Forbes",
+                                    style: const TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                  SizedBox(width: 4),
-                                  Icon(
-                                    Icons.verified,
-                                    size: 16,
-                                    color: Colors.blue,
-                                  ),
+                                  if (model?.publisherVerified ?? true) ...[
+                                    const SizedBox(width: 4),
+                                    const Icon(
+                                      Icons.verified,
+                                      size: 16,
+                                      color: Colors.blue,
+                                    ),
+                                  ],
                                 ],
                               ),
-                              const Text(
-                                "Jun 11, 2023",
-                                style: TextStyle(color: Colors.grey),
+                              Text(
+                                model?.date ?? "Jun 11, 2023",
+                                style: const TextStyle(color: Colors.grey),
                               ),
                             ],
                           ),
@@ -125,9 +150,11 @@ class RecommendationWidget extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 18),
-                  const Text(
-                    "Tech Startup Secures \$50 Million Funding for Expansion",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  Text(
+                    model?.title ?? "Tech Startup Secures \$50 Million Funding for Expansion",
+                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 6),
                   Container(
@@ -141,19 +168,32 @@ class RecommendationWidget extends StatelessWidget {
                         width: 1,
                       ),
                     ),
-                    child: const Text(
-                      "Business",
-                      style: TextStyle(color: Colors.blue, fontWeight: FontWeight.w500),
+                    child: Text(
+                      model?.category ?? "Business",
+                      style: const TextStyle(color: Colors.blue, fontWeight: FontWeight.w500),
                     ),
                   ),
                   const SizedBox(height: 6),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: Image.asset(
-                      "assets/forbes_img.png",
-                      width: 360,
-                      height: 198,
-                      fit: BoxFit.cover,
+                    child: AspectRatio(
+                      aspectRatio: 16 / 9,
+                      child: model?.image.isNotEmpty == true
+                          ? Image.network(
+                              model!.image,
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, _, __) => Container(
+                                color: Colors.grey.shade200,
+                                alignment: Alignment.center,
+                                child: const Icon(Icons.broken_image),
+                              ),
+                            )
+                          : Image.asset(
+                              "assets/forbes_img.png",
+                              width: double.infinity,
+                              fit: BoxFit.cover,
+                            ),
                     ),
                   ),
                 ],

@@ -46,11 +46,12 @@ class TrendingNewsWidget extends StatelessWidget {
                       final item = items[index];
                       return TrendingCard(
                         title: item.title,
-                        imagePath: item.imagePath,
-                        source: item.source,
+                        imagePath: item.image,
+                        source: item.publisher,
                         date: item.date,
-                        tag: item.tag,
-                        logoPath: item.logoPath,
+                        tag: item.category,
+                        logoPath: item.publisherIcon,
+                        isVerified: item.isVerified,
                       );
                     },
                   ),

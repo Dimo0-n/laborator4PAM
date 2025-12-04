@@ -1,27 +1,36 @@
 import 'dart:convert';
 
-import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
 
-import '../models/data_model.dart';
-import '../models/trending_news_model.dart';
+import '../models/feed_details_response.dart';
+import '../models/feed_response.dart';
 
 class DataRepository {
-  Future<List<DataModel>> loadData() async {
-    final String jsonString = await rootBundle.loadString('assets/data.json');
-    final List<dynamic> decoded = jsonDecode(jsonString) as List<dynamic>;
-    return decoded
-        .map((dynamic item) =>
-            DataModel.fromJson(item as Map<String, dynamic>))
-        .toList();
+  DataRepository({http.Client? client}) : _client = client ?? http.Client();
+
+  final http.Client _client;
+
+  static const String _baseUrl = 'https://test-api-jlbn.onrender.com/v4';
+
+  Future<FeedResponse> loadFeed() async {
+    final Uri uri = Uri.parse('$_baseUrl/feed');
+    final http.Response response = await _client.get(uri);
+    if (response.statusCode != 200) {
+      throw Exception('Failed to load feed (${response.statusCode})');
+    }
+    final Map<String, dynamic> decoded =
+        jsonDecode(response.body) as Map<String, dynamic>;
+    return FeedResponse.fromJson(decoded);
   }
 
-  Future<List<TrendingNewsModel>> loadTrendingNews() async {
-    final String jsonString =
-        await rootBundle.loadString('assets/trending_news.json');
-    final List<dynamic> decoded = jsonDecode(jsonString) as List<dynamic>;
-    return decoded
-        .map((dynamic item) => TrendingNewsModel.fromJson(
-            item as Map<String, dynamic>))
-        .toList();
+  Future<FeedDetailsResponse> loadFeedDetails() async {
+    final Uri uri = Uri.parse('$_baseUrl/feed/details');
+    final http.Response response = await _client.get(uri);
+    if (response.statusCode != 200) {
+      throw Exception('Failed to load feed details (${response.statusCode})');
+    }
+    final Map<String, dynamic> decoded =
+        jsonDecode(response.body) as Map<String, dynamic>;
+    return FeedDetailsResponse.fromJson(decoded);
   }
 }

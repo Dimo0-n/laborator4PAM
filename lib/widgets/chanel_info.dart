@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ChannelInfo extends StatelessWidget {
   final String logoPath;
-  final int newsCount;
-  final int followers;
+  final String newsCount;
+  final String followers;
   final int following;
   final bool isFollowing;
 
@@ -25,11 +26,10 @@ class ChannelInfo extends StatelessWidget {
           padding: const EdgeInsets.only(top: 32, left: 18),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8),
-            child: Image.asset(
-            logoPath,
-            width: 108,
-            height: 108,
-            fit: BoxFit.cover,
+            child: SizedBox(
+              width: 108,
+              height: 108,
+              child: _buildLogo(),
             ),
           ),
         ),
@@ -43,8 +43,8 @@ class ChannelInfo extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        _buildStat(newsCount, 'News'),
-                        _buildStat(followers, 'Followers'),
+                        _buildStatText(newsCount, 'News'),
+                        _buildStatText(followers, 'Followers'),
                         _buildStat(following, 'Following'),
                       ],
                     ),
@@ -78,12 +78,16 @@ class ChannelInfo extends StatelessWidget {
   }
 
   Widget _buildStat(int count, String label) {
+    return _buildStatText(count.toString(), label);
+  }
+
+  Widget _buildStatText(String count, String label) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          count.toString(),
+          count,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16,
@@ -98,6 +102,29 @@ class ChannelInfo extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildLogo() {
+    if (logoPath.toLowerCase().endsWith('.svg')) {
+      return SvgPicture.network(
+        logoPath,
+        fit: BoxFit.cover,
+        placeholderBuilder: (_) => _placeholder(),
+      );
+    }
+    return Image.network(
+      logoPath,
+      fit: BoxFit.cover,
+      errorBuilder: (context, _, __) => _placeholder(),
+    );
+  }
+
+  Widget _placeholder() {
+    return Container(
+      color: Colors.grey.shade300,
+      alignment: Alignment.center,
+      child: const Icon(Icons.broken_image),
     );
   }
 }
